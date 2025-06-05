@@ -10,7 +10,7 @@ import gleam/regexp
 import lustre/element.{type Element, text}
 import lustre/element/html
 import lustre/attribute as attr
-import form.{type Form, type Fields, type Lookups, type GleamType, Form, String, Int, Float, Bool, Option, List, Enum, Uuid}
+import form_gleam.{type Form, type Fields, type Lookups, type GleamType, Form, String, Int, Float, Bool, Option, List, Enum, Uuid} as form
 
 pub type InputErrs(field) = Dict(#(field, List(Int)), List(String))
 

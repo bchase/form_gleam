@@ -5,7 +5,7 @@ import gleam/float
 import gleam/string
 import gleam/dict.{type Dict}
 import gleam/regexp
-import form
+import form_gleam as form
 // TODO mv validation
 
 pub type ValidationErrs(field) = Dict(#(field, List(Int)), List(String))
