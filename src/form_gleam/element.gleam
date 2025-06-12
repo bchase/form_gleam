@@ -190,6 +190,19 @@ pub fn value_scalar(
   }
 }
 
+pub fn value_scalar_(
+  fields: Fields(field),
+  field: field,
+) -> Option(String) {
+  case dict.get(fields, field) {
+    Ok([val, ..]) ->
+      Some(val)
+
+    _ ->
+      None
+  }
+}
+
 pub fn input(
   field: field,
   fields: Fields(field),
@@ -223,6 +236,37 @@ pub fn input(
           errs_element(x.errs),
         ])
     },
+  ])
+}
+
+pub fn textarea(
+  field: field,
+  fields: Fields(field),
+  lookup: Lookups(field),
+  errs: InputErrs(field),
+  col_width: Int,
+  overrides: InputOverrides,
+) -> Element(msg) {
+  let x = build_input(field, fields, lookup, errs, overrides)
+  let attrs = build_input_attrs(x, None, True)
+
+  let value =
+    value_scalar_(fields, field)
+    |> option.unwrap("")
+
+  html.div([
+    attr.class("col-md-" <> int.to_string(col_width))
+  ], [
+    html.label([
+      attr.for(x.id),
+    ], [
+      text(x.label),
+    ]),
+
+    html.div([], [
+      html.textarea(attrs, value),
+      errs_element(x.errs),
+    ])
   ])
 }
 
